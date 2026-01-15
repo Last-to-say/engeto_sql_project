@@ -19,13 +19,13 @@ které slouží jako datový podklad pro odpovědi na definované výzkumné ot�
 
 ## Introduction (EN)
 The goal of this project is to analyze the development of wages and prices of basic food products
-in the Czech Republic and to assess their affordability over time.  
+in the Czech Republic and to assess their affordability over time.
 The analysis is based on open data published by the Czech Statistical Office
 and other public data sources.
 
 The project focuses on the comparable period **2006–2018**, during which both wage
-and food price data are available. The analysis also examines the relationship between GDP growth,
-wages, and food prices.
+and food price data are available. The analysis also examines the relationship
+between GDP growth, wages, and food prices.
 
 The main outputs of the project are two analytical tables and a set of SQL queries
 that provide data-driven answers to the defined research questions.
@@ -49,152 +49,172 @@ that provide data-driven answers to the defined research questions.
 ---
 
 ## Metodologie (CZ)
-- Národní průměrná mzda je určena pomocí záznamů s `industry_branch_code IS NULL`
-- Ceny potravin jsou agregovány jako **roční průměry jednotlivých kategorií**
 - Analýza pracuje pouze se **společnými roky 2006–2018**
-- Primární datové tabulky nebyly nijak upravovány; veškeré transformace probíhají
-  až v nově vytvořených tabulkách
+- Mzdy jsou analyzovány **podle jednotlivých odvětví**
+- Ceny potravin jsou agregovány jako **roční průměry jednotlivých kategorií**
+- Primární datové tabulky nebyly upravovány; veškeré transformace probíhají
+  až v nově vytvořených tabulkách nebo CTE
 
 ---
 
 ## Methodology (EN)
-- National average wage is calculated using records with `industry_branch_code IS NULL`
-- Food prices are aggregated as **yearly averages by category**
 - The analysis uses **common years only (2006–2018)**
+- Wages are analyzed **by individual industries**
+- Food prices are aggregated as **yearly averages by category**
 - Primary source tables are not modified; all transformations are performed
-  in newly created tables
+  in newly created tables or CTEs
 
 ---
 
-## Výzkumné otázky a interpretace
+## Výzkumné otázky a interpretace  
+## Research Questions and Interpretation
 
 ---
 
 ### Question 1  
-**Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?**
+**Rostou v průběhu let mzdy ve všech odvětvích, nebo v některých klesají?**  
+**Do wages grow over time in all industries, or do some industries experience declines?**
 
 #### 🇨🇿 Interpretace
-Analýza meziročních změn mezd podle jednotlivých odvětví ukazuje, že **ne ve všech odvětvích mzdy rostly nepřetržitě**.  
-Ve většině odvětví se v analyzovaném období (2006–2018) vyskytl alespoň jeden rok,
-kdy průměrná mzda meziročně klesla.
+Analýza meziročních změn mezd v období **2006–2018** ukazuje, že **ne ve všech odvětvích mzdy rostly nepřetržitě**.
 
-Pouze v několika odvětvích (např. *Administrativní a podpůrné činnosti*,
-*Zdravotní a sociální péče*, *Zpracovatelský průmysl*) mzdy nikdy neklesly –  
-buď rostly, nebo zůstaly na stejné úrovni.
+- Z celkem **19 sledovaných odvětví** zaznamenalo **14 odvětví alespoň jeden rok poklesu mezd**
+- Pouze **5 odvětví** nevykázalo žádný meziroční pokles (mzdy pouze rostly nebo stagnovaly)
+
+Například:
+- **Těžba a dobývání** zaznamenala pokles mezd ve **4 různých letech**
+- **Zdravotní a sociální péče** nezaznamenala žádný pokles mezd
 
 **Závěr:**  
-Mzdy obecně dlouhodobě rostou, ale **neplatí to rovnoměrně pro všechna odvětví**.
+Mzdy dlouhodobě rostou, avšak **krátkodobé poklesy jsou v řadě odvětví běžné**.
 
 #### 🇬🇧 Interpretation
-The year-over-year wage analysis by industry shows that **not all industries experienced continuous wage growth**.  
-In most industries, there was at least one year between 2006–2018 when the average wage decreased.
+The year-over-year wage analysis for **2006–2018** shows that **wages did not grow continuously in all industries**.
 
-Only a small number of industries showed no wage decreases at all,
-meaning wages either increased or stayed constant throughout the period.
+- Out of **19 analyzed industries**, **14 experienced at least one year of wage decline**
+- Only **5 industries** showed no wage decreases at all
+
+For example:
+- **Mining and quarrying** recorded wage declines in **4 different years**
+- **Health and social care** showed no wage decline during the entire period
 
 **Conclusion:**  
-Although wages tend to grow in the long term, **wage growth is not consistent across all industries**.
+While wages grow in the long term, **short-term declines are common across many industries**.
 
 ---
 
 ### Question 2  
-**Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období?**
+**Kolik je možné si koupit litrů mléka a kilogramů chleba za první a poslední srovnatelné období?**  
+**How many liters of milk and kilograms of bread could an average person buy in the first and last comparable period?**
 
 #### 🇨🇿 Interpretace
-V roce **2006** bylo možné si z průměrné mzdy koupit:
-- více litrů mléka
-- více kilogramů chleba
+V roce **2006** činila průměrná mzda přibližně **20 342 Kč**.  
+Za tuto mzdu bylo možné koupit:
+- cca **1 409 litrů mléka** (cena ~ **14,4 Kč/l**)
+- cca **1 262 kg chleba** (cena ~ **16,1 Kč/kg**)
 
-V roce **2018** sice průměrná mzda výrazně vzrostla, ale zároveň vzrostly i ceny potravin.  
-Výsledkem je, že kupní síla se zvýšila, **avšak nikoli úměrně růstu mezd**.
+V roce **2018** vzrostla průměrná mzda na cca **31 980 Kč**, ale ceny potravin také vzrostly:
+- mléko ~ **19,8 Kč/l**
+- chléb ~ **24,2 Kč/kg**
+
+Kupní síla v roce 2018:
+- cca **1 614 litrů mléka**
+- cca **1 319 kg chleba**
 
 **Závěr:**  
-Kupní síla průměrné mzdy vůči základním potravinám se mezi lety 2006 a 2018 zlepšila,
-ale růst cen potravin část tohoto efektu oslabil.
+Kupní síla se zvýšila, ale **růst cen potravin výrazně oslabil efekt růstu mezd**.
 
 #### 🇬🇧 Interpretation
-In 2006, an average wage allowed the purchase of a higher number of liters of milk
-and kilograms of bread.
+In **2006**, the average wage was approximately **20,342 CZK**, allowing the purchase of:
+- about **1,409 liters of milk**
+- about **1,262 kilograms of bread**
 
-By 2018, average wages increased substantially, but food prices also rose.  
-As a result, purchasing power improved, **but not proportionally to wage growth**.
+By **2018**, the average wage increased to around **31,980 CZK**, but food prices also rose.
+
+Purchasing power in 2018:
+- about **1,614 liters of milk**
+- about **1,319 kilograms of bread**
 
 **Conclusion:**  
-The purchasing power of the average wage in relation to basic food products increased,
-though rising food prices reduced part of the benefit.
+Purchasing power increased, but **food price growth significantly reduced the impact of wage growth**.
 
 ---
 
 ### Question 3  
-**Která kategorie potravin zdražuje nejpomaleji?**
+**Která kategorie potravin zdražuje nejpomaleji?**  
+**Which food category increases in price the slowest?**
 
 #### 🇨🇿 Interpretace
-Na základě průměrného meziročního procentuálního růstu cen vychází jako
-**nejpomaleji zdražující kategorie potravin cukr krystalový**
-(respektive jiná kategorie s nejnižší hodnotou ve výstupu).
+Nejpomaleji zdražující kategorií potravin byl **cukr krystalový**,
+s průměrným meziročním růstem **−1,92 %**.
 
-Tyto kategorie vykazují:
-- velmi nízký průměrný meziroční růst cen
-- v některých letech dokonce pokles ceny
+Další pomalu zdražující kategorie:
+- Rajská jablka: **−0,74 %**
+- Banány: **+0,81 %**
+
+Naopak nejrychleji zdražovaly:
+- Papriky: **+7,29 %**
+- Máslo: **+6,67 %**
 
 **Závěr:**  
-Ne všechny potraviny zdražují stejným tempem;
-některé základní produkty mají dlouhodobě velmi stabilní ceny.
+Vývoj cen potravin je velmi nerovnoměrný a některé základní potraviny
+vykazují dlouhodobou cenovou stabilitu.
 
 #### 🇬🇧 Interpretation
-Based on the average year-over-year percentage price change,
-the slowest-growing food category was identified (e.g. crystal sugar).
+The slowest-growing food category was **crystal sugar**, with an average YoY change of **−1.92 %**.
 
-These categories show:
-- very low average annual price growth
-- occasional price decreases in some years
+In contrast, some products showed rapid price growth, such as peppers (**+7.29 %**) and butter (**+6.67 %**).
 
 **Conclusion:**  
-Food prices do not increase uniformly;
-some staple products show long-term price stability.
+Food price development is highly uneven across categories.
 
 ---
 
 ### Question 4  
-**Existuje rok, kdy byl růst cen potravin výrazně vyšší než růst mezd (o více než 10 %)?**
+**Existuje rok, kdy byl růst cen potravin výrazně vyšší než růst mezd (o více než 10 %)?**  
+**Is there a year when food price growth exceeded wage growth by more than 10 percentage points?**
 
 #### 🇨🇿 Interpretace
-Analýza rozdílu mezi meziročním růstem cen potravin a mezd ukazuje,
-že **v analyzovaném období neexistuje rok**, ve kterém by růst cen potravin
-převýšil růst mezd o více než **10 procentních bodů**.
+V žádném roce mezi **2007–2018** nepřesáhl rozdíl mezi růstem cen potravin
+a růstem mezd hranici **10 procentních bodů**.
+
+Nejvyšší zaznamenaný rozdíl činil přibližně **9,6 p. b. (rok 2017)**.
 
 **Závěr:**  
-Neexistuje důkaz o extrémním zhoršení dostupnosti potravin vůči mzdám v jediném roce.
+Nedochází k extrémnímu meziročnímu zhoršení dostupnosti potravin vůči mzdám.
 
 #### 🇬🇧 Interpretation
-The comparison between year-over-year food price growth and wage growth shows
-that there is **no year** in which food prices increased by more than
-10 percentage points above wage growth.
+In none of the analyzed years did the difference exceed **10 percentage points**.
+The highest observed difference was approximately **9.6 pp in 2017**.
 
 **Conclusion:**  
-There is no evidence of a single year with a dramatic deterioration
-in food affordability relative to wages.
+There is no evidence of a year with extreme deterioration in food affordability.
 
 ---
 
 ### Question 5  
-**Má HDP vliv na změny mezd a cen potravin?**
+**Má HDP vliv na změny mezd a cen potravin?**  
+**Does GDP influence changes in wages and food prices?**
 
 #### 🇨🇿 Interpretace
-Porovnání meziročního růstu HDP s růstem mezd a cen potravin ukazuje, že:
-- vztah **není jednoznačný**
-- vyšší růst HDP se **ne vždy** projeví okamžitě ve mzdách či cenách potravin
-- v některých případech lze pozorovat **slabý zpožděný efekt** (v následujícím roce)
+Vztah mezi růstem HDP, mezd a cen potravin není jednoznačný.
+
+Například:
+- V roce **2009** kleslo HDP o **−4,7 %**, zatímco mzdy vzrostly o **+3,25 %**
+- V roce **2013** HDP stagnovalo (**−0,05 %**), ale ceny potravin vzrostly o více než **+5 %**
+
+Slabý zpožděný efekt lze pozorovat pouze v některých letech.
 
 **Závěr:**  
 HDP samo o sobě **není spolehlivým krátkodobým prediktorem**
-růstu mezd ani cen potravin.
+vývoje mezd ani cen potravin.
 
 #### 🇬🇧 Interpretation
-Comparing year-over-year GDP growth with wage and food price growth shows that:
-- the relationship is **not consistent**
-- higher GDP growth does not always translate immediately into wage or food price increases
-- in some cases, a **weak lagged effect** can be observed
+The relationship between GDP growth and wage or food price changes is inconsistent.
+
+For example:
+- In **2009**, GDP declined by **−4.7 %**, while wages still increased
+- In **2013**, GDP stagnated, yet food prices rose by over **5 %**
 
 **Conclusion:**  
 GDP alone is **not a strong short-term predictor**
